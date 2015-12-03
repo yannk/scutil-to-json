@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 )
 
@@ -94,7 +93,7 @@ func JSONEncode(r io.Reader, w io.Writer) error {
 		return err
 	}
 	topMap[topKey] = res
-	encoder := json.NewEncoder(os.Stdout)
+	encoder := json.NewEncoder(w)
 	if err := encoder.Encode(&topMap); err != nil {
 		return fmt.Errorf("error encoding json: %s", err)
 	}
