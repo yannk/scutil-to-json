@@ -74,7 +74,7 @@ func parseLine(scanner *bufio.Scanner, line string) (key string, value interface
 }
 
 // JSONEncode reads from r which contains a scutil --nc formatted data
-// and writes the equivalent JSON structure in w.
+// and writes the equivalent JSON structure to w.
 func JSONEncode(r io.Reader, w io.Writer) error {
 	br := bufio.NewReader(r)
 	firstLine, err := br.ReadString('\n')
