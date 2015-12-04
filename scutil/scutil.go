@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var ErrEndOfBlock = errors.New("eob")
+var errEndOfBlock = errors.New("eob")
 
 func parseDict(scanner *bufio.Scanner) (map[string]interface{}, error) {
 	res := make(map[string]interface{})
@@ -21,7 +21,7 @@ func parseDict(scanner *bufio.Scanner) (map[string]interface{}, error) {
 		}
 		key, value, err := parseLine(scanner, line)
 		if err != nil {
-			if err != ErrEndOfBlock {
+			if err != errEndOfBlock {
 				return nil, err
 			}
 			return res, nil
@@ -41,7 +41,7 @@ func parseArray(scanner *bufio.Scanner) ([]interface{}, error) {
 		}
 		_, value, err := parseLine(scanner, line)
 		if err != nil {
-			if err != ErrEndOfBlock {
+			if err != errEndOfBlock {
 				return nil, err
 			}
 			return res, nil
@@ -56,7 +56,7 @@ func parseLine(scanner *bufio.Scanner, line string) (key string, value interface
 	parts := strings.SplitN(line, " : ", 2)
 	if len(parts) == 1 {
 		if line[len(line)-1] == '}' {
-			return "", nil, ErrEndOfBlock
+			return "", nil, errEndOfBlock
 		}
 		return "", nil, fmt.Errorf("do not know how to parse: %s", line)
 	}
